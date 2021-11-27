@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
  <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Document</title>
+ <title>User Form</title>
+ <link rel="stylesheet" href="res/css/styles.css" type="text/css" />
 </head>
+
 <body>
+ <h1>User Data</h1>
 
-<!--
- Server
+ <form action="index.php" method="POST" autocomplete="off">
+  <input type="text" placeholder="First Name" name="fname" /><br />
+  <input type="text" placeholder="Last Name" name="lname" /><br />
+  <input type="email" placeholder="Email" name="email" /><br />
+  <input type="password" placeholder="Password" name="pwd" /><br />
+  <input type="submit" value="Submit" />
+ </form>
 
-
-https://localhost/practice/index.php ? 
-
-fname=Mahbub+Rashid &
-lname=Tonoy &
-email=mrmahbubtonoy%40gmail.com &
-pwd=123456789
-
-
--->
-
-  
-<form action="index.php" method="POST" >
- <input type="text" placeholder="First Name" name="fname" /><br/>
- <input type="text" placeholder="Last Name" name="lname" /><br/>
- <input type="email" placeholder="Email" name="email" /><br/>
- <input type="password" placeholder="Password" name="pwd" /><br/>
- <input type="submit" value="Submit" />
-</form>
-
-<?php
+ <?php
 
 
- if(isset($_POST['fname'])) {
-  
-  echo "<br/>";
-  echo "First Name: " . $_POST['fname'] . "<br/>";
-  echo "Last Name: " . $_POST['lname'] . "<br/>";
-  echo "Email: " . $_POST['email'] . "<br/>";
-  // echo "Password: " . $_POST['pwd'] . "<br/>";
-  
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (
+   empty($_POST['fname']) ||
+   empty($_POST['lname']) ||
+   empty($_POST['email']) ||
+   empty($_POST['pwd'])
+  ) {
+   echo "<div class='failed_message'>Some of Your Data Missing, Please Try Again.</div>";
+  } else {
+   echo "<div class='success_container'>";
+    echo "<div class='success_message'>Thanks for Submitting.</div>";
+    echo "<div class='success_details'>";
+     echo "First Name: " . $_POST['fname'] . "<br/>";
+     echo "Last Name: " . $_POST['lname'] . "<br/>";
+     echo "Full Name: " . $_POST['fname']. " " . $_POST['lname']. "<br/>";
+     echo "Email: " . $_POST['email'] . "<br/>";
+     echo "Password: [HIDDEN] <br/>";
+    echo "</div>";
+   echo "</div>";
+  }
  }
 
-?>
+ ?>
 
 
 </body>
+
 </html>
